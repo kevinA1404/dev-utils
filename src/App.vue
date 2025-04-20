@@ -6,11 +6,11 @@ const router = useRouter();
 const route = useRoute();
 
 const navigation = [
-  { name: "UUID Generator", route: "/uuid-generator" },
-  { name: "Hash Generator", route: "/hash-generator" },
-  { name: "URL Decoder/Encoder", route: "/url-encoder" },
-  { name: "JSON Editor", route: "/json-editor" },
-  { name: "Lorem Ipsum", route: "/lorem-ipsum" },
+  { name: "UUID Generator", routeName: "UuidGenerator" },
+  { name: "Hash Generator", routeName: "HashGenerator" },
+  { name: "URL Decoder/Encoder", routeName: "UrlEncoder" },
+  { name: "JSON Editor", routeName: "JsonEditor" },
+  { name: "Lorem Ipsum", routeName: "LoremIpsum" },
 ];
 
 const currentRoute = computed(() => route.path);
@@ -57,7 +57,7 @@ if (
                 <router-link
                   v-for="item in navigation"
                   :key="item.name"
-                  :to="item.route"
+                  :to="{ name: item.routeName }"
                   :class="[
                     currentRoute === item.route
                       ? 'border-indigo-500 text-gray-900 dark:text-white'

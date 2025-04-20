@@ -8,32 +8,32 @@ const tools = [
   {
     name: "UUID Generator",
     description: "Generate UUID v4 strings",
-    route: "/uuid-generator",
+    routeName: "UuidGenerator",
   },
   {
     name: "Hash Generator",
     description: "Generate random strings for use as secrets or codes",
-    route: "/hash-generator",
+    routeName: "HashGenerator",
   },
   {
     name: "URL Decoder/Encoder",
     description: "Encode or decode URLs",
-    route: "/url-encoder",
+    routeName: "UrlEncoder",
   },
   {
     name: "JSON Editor + Beautifier",
     description: "Validate, beautify, and edit JSON",
-    route: "/json-editor",
+    routeName: "JsonEditor",
   },
   {
     name: "Lorem Ipsum Generator",
     description: "Generate placeholder text for your designs",
-    route: "/lorem-ipsum",
+    routeName: "LoremIpsum",
   },
 ];
 
-const navigateTo = (route) => {
-  router.push(route);
+const navigateTo = (routeName) => {
+  router.push({ name: routeName });
 };
 </script>
 
@@ -57,7 +57,7 @@ const navigateTo = (route) => {
             <div
               v-for="tool in tools"
               :key="tool.name"
-              @click="navigateTo(tool.route)"
+              @click="navigateTo(tool.routeName)"
               class="flex flex-col justify-between bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg cursor-pointer transition-all duration-300 hover:shadow-lg border border-gray-200 dark:border-gray-700"
             >
               <div class="px-4 py-5 sm:p-6">

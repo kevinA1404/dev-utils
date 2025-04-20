@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, nextTick } from "vue";
 
 const jsonInput = ref("");
 const jsonOutput = ref("");
@@ -23,6 +23,26 @@ const validateAndBeautify = () => {
   } catch (e) {
     error.value = e.message;
     jsonOutput.value = "";
+  }
+};
+
+const handleTabIndent = (event) => {
+  if (event.key === "Tab") {
+    event.preventDefault();
+    const el = event.target;
+    const start = el.selectionStart;
+    const end = el.selectionEnd;
+
+    const tabSpaces = "  "; // 2 spaces
+
+    jsonInput.value =
+      jsonInput.value.substring(0, start) +
+      tabSpaces +
+      jsonInput.value.substring(end);
+
+    nextTick(() => {
+      el.selectionStart = el.selectionEnd = start + tabSpaces.length;
+    });
   }
 };
 
@@ -140,6 +160,7 @@ const minifyJson = () => {
                 name="json-input"
                 rows="10"
                 v-model="jsonInput"
+                @keydown="handleTabIndent"
                 placeholder="Paste your JSON here"
                 class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md font-mono"
               ></textarea>

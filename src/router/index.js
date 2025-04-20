@@ -11,31 +11,35 @@ import Home from "../views/Home.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    redirect: "/dev-utils",
   },
   {
-    path: "/uuid-generator",
+    path: "/dev-utils",
+    name: "DevUtils",
+    component: Home, // If you want a home page for /dev-utils
+  },
+  {
+    path: "/dev-utils/uuid-generator",
     name: "UuidGenerator",
     component: UuidGenerator,
   },
   {
-    path: "/hash-generator",
+    path: "/dev-utils/hash-generator",
     name: "HashGenerator",
     component: HashGenerator,
   },
   {
-    path: "/url-encoder",
+    path: "/dev-utils/url-encoder",
     name: "UrlEncoder",
     component: UrlEncoder,
   },
   {
-    path: "/json-editor",
+    path: "/dev-utils/json-editor",
     name: "JsonEditor",
     component: JsonEditor,
   },
   {
-    path: "/lorem-ipsum",
+    path: "/dev-utils/lorem-ipsum",
     name: "LoremIpsum",
     component: LoremIpsum,
   },
