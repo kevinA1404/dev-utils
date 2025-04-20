@@ -1,0 +1,28 @@
+{
+  "name": "dev-utils",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "uuid": "^11.1.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@iconify-json/heroicons-outline": "^1.2.1",
+    "@tailwindcss/postcss": "^4.1.4",
+    "@vitejs/plugin-vue": "^5.2.2",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4",
+    "unplugin-icons": "^22.1.0",
+    "unplugin-vue-components": "^28.5.0",
+    "vite": "^6.3.1"
+  }
+}
