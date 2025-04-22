@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 const modes = [
   { id: "words", name: "Words" },
@@ -7,7 +7,7 @@ const modes = [
   { id: "paragraphs", name: "Paragraphs" },
 ];
 
-const selectedMode = ref("paragraphs");
+const selectedMode = ref("sentences");
 const count = ref(3);
 const minCount = 1;
 const maxCount = {
@@ -146,6 +146,10 @@ const lorem = {
     "sed",
   ],
 };
+
+onMounted(() => {
+  generateLoremIpsum();
+});
 
 // Generate random words
 const generateWords = (count) => {

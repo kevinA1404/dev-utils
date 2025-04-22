@@ -1,31 +1,43 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import CryptoJS from "crypto-js";
 
-const length = ref(100);
+const length = ref(defaultLength);
+const defaultLength = 100;
 const minLength = 10;
 const maxLength = 1000;
 const generatedHash = ref("");
 const copied = ref(false);
 
-const generateHash = () => {
+watch(length, (val) => {
+  generateHash(val);
+});
+
+onMounted(() => {
+  generateHash(defaultLength);
+});
+
+const generateHash = (hashLength = defaultLength) => {
+  if (hashLength > maxLength) {
+    hashLength = maxLength;
+  }
   // Generate a random string of specified length
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
   let result = "";
 
   // Use crypto library to generate random values
-  const wordArray = CryptoJS.lib.WordArray.random(length.value);
+  const wordArray = CryptoJS.lib.WordArray.random(hashLength);
   const base64 = CryptoJS.enc.Base64.stringify(wordArray);
 
   // Ensure we get exactly the requested length
   result = base64.replace(/[+/=]/g, ""); // Remove non-alphanumeric chars
 
   // Trim or pad to exact length
-  if (result.length > length.value) {
-    result = result.substring(0, length.value);
+  if (result.length > hashLength) {
+    result = result.substring(0, hashLength);
   } else {
-    while (result.length < length.value) {
+    while (result.length < hashLength) {
       const randomIndex = Math.floor(Math.random() * chars.length);
       result += chars[randomIndex];
     }
@@ -97,7 +109,7 @@ const isValidLength = computed(() => {
               <div>
                 <button
                   type="button"
-                  @click="generateHash"
+                  @click="generateHash(length)"
                   :disabled="!isValidLength"
                   class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >

@@ -1,14 +1,23 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { v4 as uuidv4 } from "uuid";
 
 const uuids = ref([]);
-const count = ref(1);
-const maxCount = 1000;
+const count = ref(defaultCount);
+const defaultCount = 1;
+const maxCount = 500;
 
-const generateUuids = () => {
+watch(count, (val) => {
+  generateUuids(val);
+});
+
+onMounted(() => {
+  generateUuids(defaultCount);
+});
+
+const generateUuids = (countToGenerate = defaultCount) => {
   uuids.value = [];
-  const numToGenerate = Math.min(count.value, maxCount);
+  const numToGenerate = Math.min(countToGenerate, maxCount);
 
   for (let i = 0; i < numToGenerate; i++) {
     uuids.value.push({
@@ -100,7 +109,7 @@ const isValidCount = computed(() => {
               <div class="flex space-x-3">
                 <button
                   type="button"
-                  @click="generateUuids"
+                  @click="generateUuids(count)"
                   :disabled="!isValidCount"
                   class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
